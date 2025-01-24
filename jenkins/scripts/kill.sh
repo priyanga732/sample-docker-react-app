@@ -2,7 +2,7 @@
 
 echo 'Terminating the "npm start" process using its PID from ".pidfile"...'
 
-# Ensure the script stops if any command fails
+# Ensure the script exits if any command fails
 set -e
 
 # Check if .pidfile exists
@@ -14,7 +14,7 @@ fi
 # Read the PID from .pidfile
 PID=$(cat .pidfile)
 
-# Verify the process is running before attempting to kill it
+# Verify if the process is running
 if ! ps -p "$PID" > /dev/null 2>&1; then
   echo "Warning: Process with PID $PID not found. It might have already terminated."
   rm -f .pidfile  # Clean up .pidfile
@@ -28,4 +28,5 @@ kill "$PID"
 # Remove the .pidfile after successful termination
 rm -f .pidfile
 echo "Process $PID terminated successfully."
+
 
